@@ -2,8 +2,26 @@
   "name": "auth-jwt-passport-express-mongo",
   "version": "1.0.0",
   "description": "Auth with JWT token, passport, express and mongo",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/vensr/auth-jwt-passport-express-mongo.git",
   "author": "venkatesh s",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.8",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  }
 }
