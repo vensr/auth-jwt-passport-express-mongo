@@ -3,15 +3,11 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 const express = require('express');
-const mongoose = require('mongoose');
 const passport = require('passport');
 const cors = require('cors');
 
-
-// connect to the db
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connection.on('error', error => console.log(error));
-mongoose.Promise = global.Promise;
+// include db
+require('./config/db')
 
 // include auth
 require('./auth/auth');
@@ -28,22 +24,9 @@ app.use(express.json());
 // setup cors
 app.use(cors());
 
-
 // add public and secure routes with jwt auth
 app.use('/', publicRoutes);
-app.use('/profile', passport.authenticate('jwt', { session: false }), secureRoute);
-
-// validation related errors
-app.use((err, req, res, next) => {
-    if (err && err.error && err.error.isJoi) {
-        res.status(400).json({
-            type: err.type,
-            message: err.error.toString()
-        });
-    } else {
-        next(err);
-    }
-});
+app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
 
 // handle all errors
 app.use(function (err, req, res, next) {

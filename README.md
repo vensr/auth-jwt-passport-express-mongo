@@ -9,14 +9,19 @@ This server side application demonstrates using nodejs, JWT, passport, express a
 
 Here is a brief about the application features 
 
+### DB migrations
+* Add roles (user and admin) using the migration scripts.
+* Add admin user using migration script
+
 ### User Registration and Login (Authentication)
-* The user registers to the application and an user account is created.
+* The user registers to the application and an user account is created with 'user' role.
 * The registered user logs into the application and JWT token is generated.
 * Secure user resource is accessed by the user by sending the JWT token.
 * The JWT token is verified and the user is allowed to access the secure resource.
 
 ### Data Validations
 * Validations are put in place to ensure required data is verified.
+* Business validations are in place to restrict registration multiple times with same email.
 
 ### User Authorization (WIP)
 * Admin accounts are added to the application.

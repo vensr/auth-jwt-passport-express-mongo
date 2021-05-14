@@ -12,17 +12,29 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    roles: [{ type: Schema.Types.ObjectId, ref: 'role' }]
 });
+
+const RoleModel = require("./role")
+const { ADMIN_ROLE, USER_ROLE } = require("../config/constants")
 
 // hash the password before save
 UserSchema.pre(
     'save',
     async function (next) {
         const user = this;
-        const hash = await bcrypt.hash(this.password, 10);
 
+        // hash the password
+        const hash = await bcrypt.hash(this.password, 10);
         this.password = hash;
+
+        // associate user role
+        await RoleModel.findOne({ name: USER_ROLE }).then(
+            (role) => {
+                this.roles.push(role);
+            }
+        );
         next();
     }
 );
@@ -32,6 +44,13 @@ UserSchema.methods.isPasswordValid = async function (password) {
     const user = this;
     const compare = await bcrypt.compare(password, user.password);
     return compare;
+}
+
+// add custom method to validate the password
+UserSchema.methods.isAdmin = async function () {
+    const user = this;
+    const adminRole = await RoleModel.findOne({ name: ADMIN_ROLE });
+    return user.roles.map(role => role._id === adminRole._id);
 }
 
 const UserModel = mongoose.model('user', UserSchema);

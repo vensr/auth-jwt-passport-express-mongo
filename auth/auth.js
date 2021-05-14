@@ -14,8 +14,16 @@ passport.use(
         },
         async (email, password, done) => {
             try {
-                const user = await UserModel.create({ email, password });
-                return done(null, user);
+                // check if email is already registered
+                const existingUser = await UserModel.findOne({ email });
+                // return error if registered
+                if (existingUser) {
+                    return done(null, { error: true });
+                } else {
+                    // create and return user details otherwise
+                    const user = await UserModel.create({ email, password });
+                    return done(null, user);
+                }
             } catch (error) {
                 done(error);
             }

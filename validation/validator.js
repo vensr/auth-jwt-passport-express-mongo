@@ -1,8 +1,7 @@
 const validator = (schema, property) => {
   return (req, res, next) => {
-    const { error } = schema.validate(req.body, { abortEarly: false });
+    const { error } = schema.validate(req[property], { abortEarly: false });
     const valid = error == null;
-
     if (valid) {
       next();
     } else {

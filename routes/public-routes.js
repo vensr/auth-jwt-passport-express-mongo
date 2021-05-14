@@ -10,19 +10,24 @@ const validator = require('../validation/validator');
 
 router.post(
     '/register',
-    [validator(schemas.userLogin), passport.authenticate('register', { session: false })],
+    [validator(schemas.userRegistration, 'body'), passport.authenticate('register', { session: false })],
     async (req, res, next) => {
-        res.json({
-            message: 'Registration is successful',
-            user: req.user
-        });
+        if (req.user.error) {
+            res.json({
+                errors: ["\"email\" is already registered"]
+            });
+        } else {
+            res.json({
+                message: 'Registration is successful',
+                user: req.user
+            });
+        }
     }
 );
 
-
 router.post(
     '/login',
-    validator(schemas.userRegistration),
+    validator(schemas.userLogin, 'body'),
     async (req, res, next) => {
         passport.authenticate(
             'login',
@@ -43,7 +48,7 @@ router.post(
                             if (error) return next(error);
 
                             // login successful, generate the JWT token
-                            const body = { _id: user._id, email: user.email };
+                            const body = { _id: user._id, email: user.email, roles: user.roles };
                             const token = jwt.sign({ user: body }, process.env.JWT_SECRET);
 
                             return res.json({ token });

@@ -13,6 +13,7 @@
     "express": "^4.17.1",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
+    "migrate": "^1.7.0",
     "mongoose": "^5.12.8",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
@@ -22,6 +23,8 @@
     "nodemon": "^2.0.7"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "migrate-up": "node_modules/migrate/bin/migrate",
+    "migrate-down": "node_modules/migrate/bin/migrate down"
   }
 }
