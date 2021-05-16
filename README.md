@@ -4,6 +4,12 @@
 * Node.js installed locally.
 * MongoDB installed and running locally.
 * HttPie user-friendly command-line HTTP client
+* Create .env file with the following contents
+```
+DB_URL=mongodb://127.0.0.1:27017/authapp
+JWT_SECRET=617b1de1-4758-42e5-8a7b-e03e772bdd45
+```
+
 ### Introduction
 Applications need a way to protect their resources and restrict access to these resources only by verified users.
 
@@ -11,7 +17,23 @@ JSON Web Token (JWT) is an open standard that defines a compact and self-contain
 
 This server side application demonstrates using nodejs, JWT, passport, express and mongodb to implement an authentication and authorization mechanism for REST API end points.
 
-Here is a brief about the application features 
+Here is a brief about the application features
+
+### Instructions to setup the application
+* Pull code and move to the source code directory
+* Install node dependencies
+```shell
+yarn install
+```
+* Run migration
+```shell
+yarn migrate-up
+```
+* Start server
+```shell
+yarn start
+```
+
 
 ### DB migrations
 * Add roles (user and admin) using the migration scripts.
