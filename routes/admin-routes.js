@@ -9,7 +9,7 @@ router.get(
         UserModel.findById(req.user._id).exec(
             (error, user) => {
                 res.json({
-                    message: 'Secure Profile Information',
+                    message: 'Admin Profile Information',
                     user: user,
                     // extract token from "Bearer token"
                     token: req.headers.authorization.split(" ")[1]
