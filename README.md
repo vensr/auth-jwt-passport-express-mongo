@@ -15,7 +15,14 @@ Here is a brief about the application features
 
 ### DB migrations
 * Add roles (user and admin) using the migration scripts.
+```
+role: User, Admin
+```
 * Add admin user using migration script
+```
+email: admin@testing.com
+password: password
+```
 
 ### User Registration and Login (Authentication)
 * The user registers to the application and an user account is created with 'user' role.
