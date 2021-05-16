@@ -29,12 +29,14 @@ UserSchema.pre(
         const hash = await bcrypt.hash(this.password, 10);
         this.password = hash;
 
-        // associate user role
-        await RoleModel.findOne({ name: USER_ROLE }).then(
-            (role) => {
-                this.roles.push(role);
-            }
-        );
+        // associate user role if its not associated with admin role
+        if (user.roles.length === 0) {
+            await RoleModel.findOne({ name: USER_ROLE }).then(
+                (role) => {
+                    this.roles.push(role);
+                }
+            );
+        }
         next();
     }
 );
@@ -50,7 +52,7 @@ UserSchema.methods.isPasswordValid = async function (password) {
 UserSchema.methods.isAdmin = async function () {
     const user = this;
     const adminRole = await RoleModel.findOne({ name: ADMIN_ROLE });
-    return user.roles.map(role => role._id === adminRole._id);
+    return user.roles.includes(adminRole._id);
 }
 
 const UserModel = mongoose.model('user', UserSchema);

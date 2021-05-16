@@ -24,6 +24,7 @@
   },
   "scripts": {
     "start": "nodemon server.js",
+    "migrate-add": "node_modules/migrate/bin/migrate create",
     "migrate-up": "node_modules/migrate/bin/migrate",
     "migrate-down": "node_modules/migrate/bin/migrate down"
   }

@@ -23,7 +23,7 @@ Here is a brief about the application features
 * Validations are put in place to ensure required data is verified.
 * Business validations are in place to restrict registration multiple times with same email.
 
-### User Authorization (WIP)
+### User Authorization
 * Admin accounts are added to the application.
 * The admin user logs into the application and JWT token is generated.
 * Secure admin resource is accessed by the admin by sending the JWT token.
